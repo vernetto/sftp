@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.sshd.server.SshServer;
 import org.apache.sshd.server.keyprovider.SimpleGeneratorHostKeyProvider;
 import org.apache.sshd.sftp.server.SftpSubsystemFactory;
@@ -11,14 +12,13 @@ import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.Collections;
 
+@Slf4j
 @SpringBootApplication
 public class DemoApplication implements CommandLineRunner {
 
 	public static void main(String[] args) {
 		SpringApplication.run(DemoApplication.class, args);
 	}
-
-
 
 	public void startServer() throws IOException {
 
@@ -33,6 +33,13 @@ public class DemoApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		startServer();
+		try {
+			startServer();
+		}
+		catch (Exception e) {
+			log.error("error", e);
+		}
+
+
 	}
 }
